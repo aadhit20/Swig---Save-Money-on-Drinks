@@ -1,9 +1,45 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>login</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+  <div class="full-flex">
+    <ion-img style="width: 50%" src="assets/images/logo.jpg"></ion-img>
+    <p>sign in to continue</p>
 
+    <div class="flex-item" style="margin-top: 7vh">
+      <ion-input placeholder="Email" class="flex-input"></ion-input>
+    </div>
+    <div class="flex-item">
+      <ion-input placeholder="Password" class="flex-input"></ion-input>
+    </div>
+    <div class="flex-item" style="margin-top: 5vh">
+      <ion-button class="flex-btn">Sign In</ion-button>
+    </div>
+
+    <p
+      routerLink="/forgot-password"
+      style="color: var(--ion-color-primary); outline: none; margin-top: 4vh"
+    >
+      Forgot Password?
+    </p>
+    <ion-row class="btn-row" style="margin-top: 3vh">
+      <ion-col size="6">
+        <ion-button
+          ><ion-icon style="padding-right: 10px" name="logo-google"></ion-icon
+          >Google</ion-button
+        >
+      </ion-col>
+      <ion-col size="6">
+        <ion-button
+          ><ion-icon style="padding-right: 10px" name="logo-facebook"></ion-icon
+          >Facebook</ion-button
+        >
+      </ion-col>
+    </ion-row>
+    <p style="margin-top: 5vh">
+      New to here?<span
+        routerLink="/signup"
+        style="color: var(--ion-color-primary); outline: none"
+      >
+        Signup Here
+      </span>
+    </p>
+  </div>
 </ion-content>

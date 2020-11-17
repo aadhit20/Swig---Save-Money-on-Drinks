@@ -1,0 +1,14 @@
+.btn-row {
+  padding: 0 16px 0 16px;
+  width: 100%;
+  ion-button {
+    height: 40px;
+    width: 100%;
+    --background: #f5f5f5;
+    color: black;
+  }
+}
+p {
+  font-size: 14px;
+  margin: 6px;
+}

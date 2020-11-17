@@ -1,9 +1,54 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>signup</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+  <div class="full-flex">
+    <ion-img style="width: 50%" src="assets/images/logo.jpg"></ion-img>
+    <p>create an account</p>
+    <div class="flex-item" style="margin-top: 20px">
+      <ion-input placeholder="First Name" class="flex-input"></ion-input>
+    </div>
+    <div class="flex-item">
+      <ion-input placeholder="Last Name" class="flex-input"></ion-input>
+    </div>
+    <div class="flex-item">
+      <ion-input placeholder="Age" class="flex-input"></ion-input>
+    </div>
+    <div class="flex-item">
+      <ion-input placeholder="Email" class="flex-input"></ion-input>
+    </div>
+    <div class="flex-item">
+      <ion-input placeholder="Password" class="flex-input"></ion-input>
+    </div>
+    <div class="flex-item">
+      <ion-button class="flex-btn">Sign Up</ion-button>
+    </div>
+    <ion-item style="margin-top: 10px" lines="none">
+      <ion-checkbox slot="start"></ion-checkbox>
+      <ion-text style="font-size: 12px"
+        >By creating an account or logging in, you agree to swig's Terms &
+        Conditions and Privacy Policy</ion-text
+      >
+    </ion-item>
 
+    <ion-row class="btn-row">
+      <ion-col size="6">
+        <ion-button
+          ><ion-icon style="padding-right: 10px" name="logo-google"></ion-icon
+          >Google</ion-button
+        >
+      </ion-col>
+      <ion-col size="6">
+        <ion-button
+          ><ion-icon style="padding-right: 10px" name="logo-facebook"></ion-icon
+          >Facebook</ion-button
+        >
+      </ion-col>
+    </ion-row>
+    <p>
+      Already have an account?<span
+        routerLink="/login"
+        style="color: var(--ion-color-primary); outline: none"
+      >
+        Login
+      </span>
+    </p>
+  </div>
 </ion-content>
