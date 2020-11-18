@@ -3,16 +3,26 @@
     <ion-img style="width: 50%" src="assets/images/logo.jpg"></ion-img>
     <p>sign in to continue</p>
 
-    <div class="flex-item" style="margin-top: 7vh">
-      <ion-input placeholder="Email" class="flex-input"></ion-input>
-    </div>
-    <div class="flex-item">
-      <ion-input placeholder="Password" class="flex-input"></ion-input>
-    </div>
-    <div class="flex-item" style="margin-top: 5vh">
-      <ion-button class="flex-btn">Sign In</ion-button>
-    </div>
-
+    <form [formGroup]="loginForm" (submit)="handleLoginUser()">
+      <div class="flex-item" style="margin-top: 7vh">
+        <ion-input
+          formControlName="email"
+          placeholder="Email"
+          class="flex-input"
+        ></ion-input>
+      </div>
+      <div class="flex-item">
+        <ion-input
+          formControlName="password"
+          placeholder="Password"
+          type="password"
+          class="flex-input"
+        ></ion-input>
+      </div>
+      <div class="flex-item" style="margin-top: 5vh">
+        <ion-button type="submit" class="flex-btn">Sign In</ion-button>
+      </div>
+    </form>
     <p
       routerLink="/forgot-password"
       style="color: var(--ion-color-primary); outline: none; margin-top: 4vh"

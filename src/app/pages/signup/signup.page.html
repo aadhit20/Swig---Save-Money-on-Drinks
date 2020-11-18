@@ -2,31 +2,53 @@
   <div class="full-flex">
     <ion-img style="width: 50%" src="assets/images/logo.jpg"></ion-img>
     <p>create an account</p>
-    <div class="flex-item" style="margin-top: 20px">
-      <ion-input placeholder="First Name" class="flex-input"></ion-input>
-    </div>
-    <div class="flex-item">
-      <ion-input placeholder="Last Name" class="flex-input"></ion-input>
-    </div>
-    <div class="flex-item">
-      <ion-input placeholder="Age" class="flex-input"></ion-input>
-    </div>
-    <div class="flex-item">
-      <ion-input placeholder="Email" class="flex-input"></ion-input>
-    </div>
-    <div class="flex-item">
-      <ion-input placeholder="Password" class="flex-input"></ion-input>
-    </div>
-    <div class="flex-item">
-      <ion-button class="flex-btn">Sign Up</ion-button>
-    </div>
-    <ion-item style="margin-top: 10px" lines="none">
-      <ion-checkbox slot="start"></ion-checkbox>
-      <ion-text style="font-size: 12px"
-        >By creating an account or logging in, you agree to swig's Terms &
-        Conditions and Privacy Policy</ion-text
-      >
-    </ion-item>
+    <form [formGroup]="signupForm" (submit)="handleSignUp()">
+      <div class="flex-item" style="margin-top: 20px">
+        <ion-input
+          formControlName="fname"
+          placeholder="First Name"
+          class="flex-input"
+        ></ion-input>
+      </div>
+      <div class="flex-item">
+        <ion-input
+          formControlName="lname"
+          placeholder="Last Name"
+          class="flex-input"
+        ></ion-input>
+      </div>
+      <div class="flex-item">
+        <ion-input
+          formControlName="age"
+          placeholder="Age"
+          class="flex-input"
+        ></ion-input>
+      </div>
+      <div class="flex-item">
+        <ion-input
+          formControlName="email"
+          placeholder="Email"
+          class="flex-input"
+        ></ion-input>
+      </div>
+      <div class="flex-item">
+        <ion-input
+          formControlName="password"
+          placeholder="Password"
+          class="flex-input"
+        ></ion-input>
+      </div>
+      <div class="flex-item">
+        <ion-button class="flex-btn">Sign Up</ion-button>
+      </div>
+      <ion-item style="margin-top: 10px" lines="none">
+        <ion-checkbox formControlName="gtc" slot="start"></ion-checkbox>
+        <ion-text style="font-size: 12px"
+          >By creating an account or logging in, you agree to swig's Terms &
+          Conditions and Privacy Policy</ion-text
+        >
+      </ion-item>
+    </form>
 
     <ion-row class="btn-row">
       <ion-col size="6">
