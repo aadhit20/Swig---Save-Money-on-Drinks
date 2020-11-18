@@ -1,16 +1,16 @@
-import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { Observable } from 'rxjs';
-import { User } from '../types/user.type';
-import { map } from 'rxjs/operators';
+import { Injectable } from "@angular/core";
+import { AngularFirestore } from "@angular/fire/firestore";
+import { AngularFireAuth } from "@angular/fire/auth";
+import { Observable } from "rxjs";
+import { User } from "../types/user.type";
+import { map } from "rxjs/operators";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class UserService {
   private snapshotChangesSubscription: any;
-  email = localStorage.getItem('email');
+  email = localStorage.getItem("email");
   constructor(public afs: AngularFirestore, public afAuth: AngularFireAuth) {}
 
   unsubscribeOnLogOut() {
@@ -19,9 +19,9 @@ export class UserService {
   }
 
   // User related
-  public  getUserDetails(): Observable<User> {
+  public getUserDetails(): Observable<User> {
     return new Observable<User>((observer) => {
-      const email = localStorage.getItem('email');
+      const email = localStorage.getItem("email");
       const docRef = this.afs.doc(`users/${email}`);
       const userData = docRef.get().subscribe(
         (res: any) => {
@@ -35,16 +35,15 @@ export class UserService {
     });
   }
 
-
   public loadCurrentUserDetails() {
-    let email = localStorage.getItem('email');
+    let email = localStorage.getItem("email");
     return this.afs
       .doc(`users/${email}`)
       .snapshotChanges()
       .pipe(
         map((changes) => {
           let data = changes.payload.data();
-         
+
           return data;
         })
       );
@@ -52,7 +51,7 @@ export class UserService {
 
   public getUserList(): Observable<any> {
     return new Observable<any>((observer) => {
-      const userCollection = this.afs.collection('users');
+      const userCollection = this.afs.collection("users");
       userCollection.valueChanges().subscribe((res) => {
         observer.next(res);
         observer.complete();
@@ -75,11 +74,10 @@ export class UserService {
     });
   }
 
-  public updateAdminStatus(adminStatus, email): Observable<any> {
-    let isAdmin = {'isAdmin' : adminStatus}
+  public addUser(userDetails, email): Observable<any> {
     return new Observable<any>((observer) => {
       const docRef = this.afs.doc(`users/${email}`);
-      docRef.set(isAdmin).then(
+      docRef.set(userDetails).then(
         (res) => {
           observer.next(res);
           observer.complete();
@@ -89,7 +87,7 @@ export class UserService {
         }
       );
     });
-  } 
+  }
 
   deleteUser(email: string) {
     return new Observable<any>((observer) => {

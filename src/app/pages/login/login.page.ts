@@ -42,7 +42,8 @@ export class LoginPage implements OnInit {
     private authService: AuthenticateService,
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private loadingCtrl: LoadingController
   ) {}
 
   ngOnInit() {
@@ -106,25 +107,30 @@ export class LoginPage implements OnInit {
   handleLoginUser() {
     this.showWarnings = true;
     if (this.loginForm.valid) {
-      let userDetails = {
-        email: this.loginForm.value.email,
-        password: this.loginForm.value.password,
-      };
-      this.authService.loginUser(userDetails).then(
-        (res) => {
-          console.log(res);
-          localStorage.setItem("email", this.loginForm.value.email);
-          this.router.navigate(["/home"]);
-        },
-        async (err) => {
-          const alert = await this.alertCtrl.create({
-            header: "Invalid credentials",
-            message: "Please enter valid username and password and try again",
-            buttons: ["Okay"],
-          });
-          await alert.present();
-        }
-      );
+      this.loadingCtrl.create({ keyboardClose: true }).then((loadingEl) => {
+        loadingEl.present();
+        let userDetails = {
+          email: this.loginForm.value.email,
+          password: this.loginForm.value.password,
+        };
+        this.authService.loginUser(userDetails).then(
+          (res) => {
+            loadingEl.dismiss();
+            console.log(res);
+            localStorage.setItem("email", this.loginForm.value.email);
+            this.router.navigate(["/home"]);
+          },
+          async (err) => {
+            loadingEl.dismiss();
+            const alert = await this.alertCtrl.create({
+              header: "Invalid credentials",
+              message: "Please enter valid username and password and try again",
+              buttons: ["Okay"],
+            });
+            await alert.present();
+          }
+        );
+      });
     }
   }
 }
