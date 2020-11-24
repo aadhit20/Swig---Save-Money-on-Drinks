@@ -1,9 +1,59 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>home</ion-title>
-  </ion-toolbar>
+    <ion-title> Swig </ion-title>
+    <ion-icon
+      class="search-icon"
+      color="primary"
+      slot="end"
+      name="search"
+    ></ion-icon
+  ></ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-item class="description-item" lines="none">
+    <ion-list>
+      <ion-label color="primary">Featured Deals</ion-label>
+      <ion-label class="detail-text">Use these deals once a month</ion-label>
+    </ion-list>
+    <ion-button slot="end">See All</ion-button>
+  </ion-item>
 
+  <ion-row>
+    <ion-col size="8" *ngFor="let deal of deals">
+      <ion-card
+        [style.background-image]="'url(' + deal.imageURL + ')' "
+        style="background-position: center; background-repeat: no-repeat"
+      >
+        <div>
+          <p class="time-remaining">{{getCountDownTime(deal.dealEndTime)}}</p>
+
+          <p class="offer-text">Buy a large pizza, Get a free pizza</p>
+          <p class="location-text">Pizza Hut</p>
+        </div>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+
+  <ion-item style="margin-top: 20px" class="description-item" lines="none">
+    <ion-list>
+      <ion-label color="primary">Deals Nearby</ion-label>
+      <ion-label class="detail-text">Use these deals once a month</ion-label>
+    </ion-list>
+    <ion-button slot="end">See All</ion-button>
+  </ion-item>
+
+  <ion-card
+    class="deal-card"
+    *ngFor="let deal of deals"
+    [style.background-image]="'url(' + deal.imageURL + ')' "
+    style="background-position: center; background-repeat: no-repeat"
+  >
+    <div>
+      <p class="time-remaining">{{getCountDownTime(deal.dealEndTime)}}</p>
+
+      <p class="offer-text">Buy a large pizza, Get a free pizza</p>
+      <p class="location-text">Pizza Hut</p>
+    </div>
+  </ion-card>
 </ion-content>
