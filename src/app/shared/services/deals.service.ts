@@ -2,6 +2,7 @@ import { map } from "rxjs/operators";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { Injectable } from "@angular/core";
 import { Deals } from "../types/deals.type";
+import { Observable } from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -39,5 +40,20 @@ export class DealsService {
           })
         )
       );
+  }
+
+  public getDealDetails(id): Observable<any> {
+    return new Observable<any>((observer) => {
+      const docRef = this.afs.doc(`deals/${id}`);
+      const userData = docRef.get().subscribe(
+        (res: any) => {
+          observer.next(res.data());
+          observer.complete();
+        },
+        (err) => {
+          observer.error(err);
+        }
+      );
+    });
   }
 }

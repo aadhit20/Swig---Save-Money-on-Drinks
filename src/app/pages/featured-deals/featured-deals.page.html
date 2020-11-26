@@ -6,7 +6,11 @@
 </ion-header>
 
 <ion-content>
-  <ion-card *ngFor="let deal of featuredDeals" class="deal-card">
+  <ion-card
+    (click)="dealClicked(deal.id)"
+    *ngFor="let deal of featuredDeals"
+    class="deal-card"
+  >
     <ion-item lines="none">
       <ion-avatar slot="start">
         <ion-img [src]="deal.imageURL"></ion-img>

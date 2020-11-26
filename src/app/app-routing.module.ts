@@ -83,6 +83,10 @@ const routes: Routes = [
         (m) => m.ComingSoonPageModule
       ),
   },
+  {
+    path: 'deal-details',
+    loadChildren: () => import('./pages/deal-details/deal-details.module').then( m => m.DealDetailsPageModule)
+  },
 ];
 @NgModule({
   imports: [

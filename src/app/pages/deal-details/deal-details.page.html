@@ -1,0 +1,18 @@
+<ion-content>
+  <ion-img [src]="dealDetails.imageURL"></ion-img>
+  <div>
+    <ion-item lines="none">
+      <ion-list>
+        <h3><strong>Pizza Ranch</strong></h3>
+        <ion-label color="primary">20% off from total bill</ion-label>
+      </ion-list>
+      <ion-badge color="secondary" slot="end"> 25% Off </ion-badge>
+    </ion-item>
+    <p>{{dealDetails.desciption}}</p>
+    <ion-button> Show Directions </ion-button>
+  </div>
+
+  <ion-button (click)="back()" class="back-btn" fill="clear" color="light">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </ion-button>
+</ion-content>

@@ -1,0 +1,23 @@
+ion-img {
+  max-height: 40vh;
+  max-width: 100%;
+  z-index: 5;
+}
+.back-btn {
+  position: absolute;
+  left: 10px;
+  z-index: 5;
+  top: 10px;
+  ion-icon {
+    font-size: 36px;
+  }
+}
+div {
+  margin-top: -20px;
+  padding: 15px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  background-color: #ffffff;
+  position: relative;
+  z-index: 120;
+}

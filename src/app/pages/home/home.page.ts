@@ -1,3 +1,4 @@
+import { Router } from "@angular/router";
 import { DealsService } from "./../../shared/services/deals.service";
 import { Component, OnInit } from "@angular/core";
 import { timer } from "rxjs";
@@ -9,7 +10,7 @@ import { timer } from "rxjs";
 })
 export class HomePage implements OnInit {
   deals = [];
-  constructor(private dealService: DealsService) {}
+  constructor(private dealService: DealsService, private router: Router) {}
 
   ngOnInit() {
     this.dealService.getAllDeals().subscribe((res) => {
@@ -38,5 +39,9 @@ export class HomePage implements OnInit {
 
     console.log(timeRemaining);
     return timeRemaining;
+  }
+
+  dealClicked(id) {
+    this.router.navigate(["/deal-details"], { queryParams: { id: id } });
   }
 }

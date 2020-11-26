@@ -24,6 +24,7 @@
   <ion-row>
     <ion-col size="8" *ngFor="let deal of deals">
       <ion-card
+        (click)="dealClicked(deal.id)"
         [style.background-image]="'url(' + deal.imageURL + ')' "
         style="background-position: center; background-repeat: no-repeat"
       >
@@ -46,6 +47,7 @@
   </ion-item>
 
   <ion-card
+    (click)="dealClicked(deal.id)"
     class="deal-card"
     *ngFor="let deal of deals"
     [style.background-image]="'url(' + deal.imageURL + ')' "
