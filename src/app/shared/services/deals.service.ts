@@ -11,7 +11,24 @@ export class DealsService {
 
   public getAllDeals() {
     return this.afs
-      .collection("deals")
+      .collection("deals", (ref) => ref.where("isActive", "==", true))
+      .snapshotChanges()
+      .pipe(
+        map((actions) =>
+          actions.map((a) => {
+            const data = a.payload.doc.data() as Deals;
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          })
+        )
+      );
+  }
+
+  public getAllFeaturedDeals() {
+    return this.afs
+      .collection("deals", (ref) =>
+        ref.where("isFeatured", "==", true).where("isActive", "==", true)
+      )
       .snapshotChanges()
       .pipe(
         map((actions) =>

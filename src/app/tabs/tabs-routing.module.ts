@@ -20,6 +20,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: "featured-deals",
+        loadChildren: () =>
+          import("../pages/featured-deals/featured-deals.module").then(
+            (m) => m.FeaturedDealsPageModule
+          ),
+      },
+      {
         path: "",
         redirectTo: "/tabs/home",
         pathMatch: "full",
