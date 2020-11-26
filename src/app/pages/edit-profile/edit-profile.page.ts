@@ -7,6 +7,7 @@ const { Camera } = Plugins;
   styleUrls: ["./edit-profile.page.scss"],
 })
 export class EditProfilePage implements OnInit {
+  imagePath = "assets/images/avatar.jpg";
   constructor() {}
 
   ngOnInit() {}
@@ -20,6 +21,7 @@ export class EditProfilePage implements OnInit {
 
     var imageUrl = image.webPath;
     console.log(imageUrl);
+    this.imagePath = imageUrl;
 
     // Can be set to the src of an image now
     //  imageElement.src = imageUrl;
