@@ -1,3 +1,12 @@
+import { UserService } from "src/app/shared/services/user.service";
+import { AlertController } from "@ionic/angular";
+import { LoadingController } from "@ionic/angular";
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from "@angular/forms";
 import { Component, OnInit } from "@angular/core";
 import { Plugins, CameraResultType } from "@capacitor/core";
 const { Camera } = Plugins;
@@ -8,9 +17,39 @@ const { Camera } = Plugins;
 })
 export class EditProfilePage implements OnInit {
   imagePath = "assets/images/avatar.jpg";
-  constructor() {}
+  profileForm: FormGroup;
+  constructor(
+    private formBuilder: FormBuilder,
+    private loadingCtrl: LoadingController,
+    private alertCtrl: AlertController,
+    private userService: UserService
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.profileForm = this.formBuilder.group({
+      fname: new FormControl("", Validators.compose([Validators.required])),
+      lname: new FormControl("", Validators.compose([Validators.required])),
+      age: new FormControl(""),
+      location: new FormControl(""),
+    });
+    this.loadingCtrl.create({ keyboardClose: true }).then((loadingEl) => {
+      loadingEl.present();
+      this.userService.loadCurrentUserDetails().subscribe(
+        (res: any) => {
+          loadingEl.dismiss();
+          this.profileForm.patchValue({
+            fname: res.fname,
+            lname: res.lname,
+            age: res.age,
+            location: res.location,
+          });
+        },
+        (err) => {
+          loadingEl.dismiss();
+        }
+      );
+    });
+  }
 
   async takePicture() {
     const image = await Camera.getPhoto({
@@ -24,5 +63,48 @@ export class EditProfilePage implements OnInit {
 
     // Can be set to the src of an image now
     //  imageElement.src = imageUrl;
+  }
+
+  async updateDetails() {
+    if (this.profileForm.valid) {
+      this.loadingCtrl.create({ keyboardClose: true }).then((loadingEl) => {
+        loadingEl.present();
+        let userData = {
+          fname: this.profileForm.value["fname"],
+          lname: this.profileForm.value["lname"],
+          age: this.profileForm.value["age"],
+          location: this.profileForm.value["location"],
+        };
+        this.userService
+          .updateUser(localStorage.getItem("email"), userData)
+          .subscribe(
+            async (res) => {
+              loadingEl.dismiss();
+              const alert = await this.alertCtrl.create({
+                header: "Success",
+                message: "Changes Saved",
+                buttons: ["Ok"],
+              });
+              alert.present();
+            },
+            async (err) => {
+              const alert = await this.alertCtrl.create({
+                header: "Success",
+                message: err,
+                buttons: ["Ok"],
+              });
+              alert.present();
+              loadingEl.dismiss();
+            }
+          );
+      });
+    } else {
+      const alert = await this.alertCtrl.create({
+        header: "Error",
+        message: "All the fields with * are required",
+        buttons: ["Ok"],
+      });
+      alert.present();
+    }
   }
 }

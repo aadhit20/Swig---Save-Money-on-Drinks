@@ -7,56 +7,71 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <div
-    style="
-      margin-top: 10px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-    "
-  >
-    <div class="camera-div">
-      <ion-avatar>
-        <div (click)="takePicture()">
-          <ion-icon
-            color="primary"
-            style="font-size: 35px"
-            name="camera"
-          ></ion-icon>
-        </div>
-<<<<<<< HEAD
-        <ion-img [src]="imagePath"></ion-img>
-=======
-        <ion-img [src]="imgPath"></ion-img>
->>>>>>> 321ae3cc72f6584b7a5c866aca8900290be3190c
-      </ion-avatar>
+  <form [formGroup]="profileForm">
+    <div
+      style="
+        margin-top: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      "
+    >
+      <div class="camera-div">
+        <ion-avatar>
+          <div (click)="takePicture()">
+            <ion-icon
+              color="primary"
+              style="font-size: 35px"
+              name="camera"
+            ></ion-icon>
+          </div>
+          <ion-img [src]="imagePath"></ion-img>
+        </ion-avatar>
+      </div>
     </div>
-  </div>
-  <p style="margin-top: 50px" class="input-title">Name</p>
-  <div class="flex-item">
-    <ion-input placeholder="Name" class="flex-input"></ion-input>
-  </div>
+    <p style="margin-top: 50px" class="input-title">First Name*</p>
+    <div class="flex-item">
+      <ion-input
+        formControlName="fname"
+        placeholder="Name"
+        class="flex-input"
+      ></ion-input>
+    </div>
+    <p style="margin-top: 10px" class="input-title">Last Name*</p>
+    <div class="flex-item">
+      <ion-input
+        formControlName="lname"
+        placeholder="Name"
+        class="flex-input"
+      ></ion-input>
+    </div>
 
-  <ion-row>
-    <ion-col size="3">
-      <p style="margin-top: 10px" class="input-title">Age</p>
-      <div style="padding: 0 0 0 16px" class="flex-item">
-        <ion-input
-          type="number"
-          placeholder="Age"
-          class="flex-input"
-        ></ion-input>
-      </div>
-    </ion-col>
-    <ion-col size="9">
-      <p style="margin-top: 10px" class="input-title">Location</p>
-      <div style="padding: 0 16px 0 16px" class="flex-item">
-        <ion-input placeholder="Location" class="flex-input"></ion-input>
-      </div>
-    </ion-col>
-  </ion-row>
+    <ion-row>
+      <ion-col size="3">
+        <p style="margin-top: 10px" class="input-title">Age</p>
+        <div style="padding: 0 0 0 16px" class="flex-item">
+          <ion-input
+            formControlName="age"
+            type="number"
+            placeholder="Age"
+            class="flex-input"
+          ></ion-input>
+        </div>
+      </ion-col>
+      <ion-col size="9">
+        <p style="margin-top: 10px" class="input-title">Location</p>
+        <div style="padding: 0 16px 0 16px" class="flex-item">
+          <ion-input
+            formControlName="location"
+            placeholder="Location"
+            class="flex-input"
+          ></ion-input>
+        </div>
+      </ion-col>
+    </ion-row>
+  </form>
 </ion-content>
 <ion-footer class="ion-padding">
-  <ion-button> Save </ion-button>
+  <ion-button (click)="updateDetails()"> Save </ion-button>
 </ion-footer>

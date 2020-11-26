@@ -49,16 +49,6 @@ export class UserService {
       );
   }
 
-  public getUserList(): Observable<any> {
-    return new Observable<any>((observer) => {
-      const userCollection = this.afs.collection("users");
-      userCollection.valueChanges().subscribe((res) => {
-        observer.next(res);
-        observer.complete();
-      });
-    });
-  }
-
   public updateUser(email: string, values: any): Observable<any> {
     return new Observable<any>((observer) => {
       const docRef = this.afs.doc(`users/${email}`);
