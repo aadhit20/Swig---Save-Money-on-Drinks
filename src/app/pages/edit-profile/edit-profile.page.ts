@@ -15,7 +15,6 @@ export class EditProfilePage implements OnInit {
   async takePicture() {
     const image = await Camera.getPhoto({
       quality: 90,
-      allowEditing: true,
       resultType: CameraResultType.Uri,
     });
 
