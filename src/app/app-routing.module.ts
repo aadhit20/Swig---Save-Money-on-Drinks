@@ -91,6 +91,10 @@ const routes: Routes = [
     path: 'error',
     loadChildren: () => import('./pages/error/error.module').then( m => m.ErrorPageModule)
   },
+  {
+    path: 'show-direction',
+    loadChildren: () => import('./pages/show-direction/show-direction.module').then( m => m.ShowDirectionPageModule)
+  },
 ];
 @NgModule({
   imports: [
