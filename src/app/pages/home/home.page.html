@@ -2,6 +2,7 @@
   <ion-toolbar>
     <ion-title> Swig </ion-title>
     <ion-icon
+      routerLink="/search"
       class="search-icon"
       color="primary"
       slot="end"
@@ -43,21 +44,26 @@
       <ion-label color="primary">Deals Nearby</ion-label>
       <ion-label class="detail-text">Use these deals once a month</ion-label>
     </ion-list>
-    <ion-button slot="end">See All</ion-button>
   </ion-item>
 
-  <ion-card
-    (click)="dealClicked(deal.id)"
-    class="deal-card"
-    *ngFor="let deal of nearbyDeals"
-    [style.background-image]="'url(' + deal.imageURL + ')' "
-    style="background-position: center; background-repeat: no-repeat"
-  >
-    <div>
-      <p class="time-remaining">{{getCountDownTime(deal.dealEndTime)}}</p>
+  <ng-container *ngIf="nearbyDeals.length > 0">
+    <ion-card
+      (click)="dealClicked(deal.id)"
+      class="deal-card"
+      *ngFor="let deal of nearbyDeals"
+      [style.background-image]="'url(' + deal.imageURL + ')' "
+      style="background-position: center; background-repeat: no-repeat"
+    >
+      <div>
+        <p class="time-remaining">{{getCountDownTime(deal.dealEndTime)}}</p>
 
-      <p class="offer-text">Buy a large pizza, Get a free pizza</p>
-      <p class="location-text">Pizza Hut</p>
-    </div>
-  </ion-card>
+        <p class="offer-text">Buy a large pizza, Get a free pizza</p>
+        <p class="location-text">Pizza Hut</p>
+      </div>
+      <h5></h5>
+    </ion-card>
+  </ng-container>
+  <h5 style="text-align: center" *ngIf="nearbyDeals.length === 0">
+    No any deals neraby
+  </h5>
 </ion-content>

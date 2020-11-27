@@ -1,0 +1,16 @@
+.deal-card {
+  margin-top: 0px;
+  ion-avatar {
+    height: 120px;
+    width: 120px;
+    --border-radius: 10px;
+  }
+}
+ion-item {
+  --padding-start: 5px;
+  --padding-top: 5px;
+  --padding-bottom: 5px;
+  ion-label {
+    font-size: 13px;
+  }
+}
