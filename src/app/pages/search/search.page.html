@@ -10,6 +10,9 @@
     [(ngModel)]="searchName"
     (ionChange)="search()"
   ></ion-searchbar>
+  <p *ngIf="searchName" style="padding-left: 20px">
+    Showing results for the search "{{searchName}}"
+  </p>
   <ion-card
     (click)="dealClicked(deal.id)"
     *ngFor="let deal of deals"
@@ -19,7 +22,7 @@
       <ion-avatar slot="start">
         <ion-img [src]="deal.imageURL"></ion-img>
       </ion-avatar>
-      <ion-list>
+      <ion-list style="width: 100%">
         <ion-label color="primary" class="title-label">
           <strong> {{deal.title}}</strong>
         </ion-label>
@@ -27,6 +30,18 @@
         <ion-label style="font-size: 12px; margin-top: 15px">
           {{deal.discountInPercentage}}
         </ion-label>
+        <ion-badge
+          color="warning"
+          *ngIf="getCountDownTime(deal.dealEndTime) === 'Expired'"
+          style="float: right"
+          >Expired</ion-badge
+        >
+        <ion-badge
+          color="success"
+          *ngIf="getCountDownTime(deal.dealEndTime) !== 'Expired'"
+          style="float: right"
+          >{{getCountDownTime(deal.dealEndTime)}}</ion-badge
+        >
       </ion-list>
     </ion-item>
   </ion-card>

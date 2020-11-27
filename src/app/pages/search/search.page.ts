@@ -36,7 +36,7 @@ export class SearchPage implements OnInit {
     if (distance < 0) {
       timeRemaining = "Expired";
     } else {
-      timeRemaining = days + "d " + hours + "h " + minutes + "m remaining";
+      timeRemaining = days + "d " + hours + "h " + minutes + "m";
     }
 
     //  console.log(timeRemaining);

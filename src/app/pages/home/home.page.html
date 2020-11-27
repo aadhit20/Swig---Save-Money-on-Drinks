@@ -12,9 +12,9 @@
 </ion-header>
 
 <ion-content>
-  <ion-item class="description-item" lines="none">
+  <ion-item style="margin-top: 15px" class="description-item" lines="none">
     <ion-list>
-      <ion-label color="primary">Featured Deals</ion-label>
+      <ion-label class="title-text" color="primary">Featured Deals</ion-label>
       <ion-label class="detail-text">Use these deals once a month</ion-label>
     </ion-list>
     <ion-button routerLink="/tabs/featured-deals" slot="end"
@@ -32,16 +32,16 @@
         <div>
           <p class="time-remaining">{{getCountDownTime(deal.dealEndTime)}}</p>
 
-          <p class="offer-text">Buy a large pizza, Get a free pizza</p>
-          <p class="location-text">Pizza Hut</p>
+          <p class="offer-text1">{{deal.discountInPercentage}}</p>
+          <p class="location-text">{{deal.title}}</p>
         </div>
       </ion-card>
     </ion-col>
   </ion-row>
 
-  <ion-item style="margin-top: 20px" class="description-item" lines="none">
+  <ion-item style="margin-top: 30px" class="description-item" lines="none">
     <ion-list>
-      <ion-label color="primary">Deals Nearby</ion-label>
+      <ion-label class="title-text" color="primary">Deals Nearby</ion-label>
       <ion-label class="detail-text">Use these deals once a month</ion-label>
     </ion-list>
   </ion-item>
@@ -57,13 +57,16 @@
       <div>
         <p class="time-remaining">{{getCountDownTime(deal.dealEndTime)}}</p>
 
-        <p class="offer-text">Buy a large pizza, Get a free pizza</p>
-        <p class="location-text">Pizza Hut</p>
+        <p class="offer-text2">{{deal.discountInPercentage}}</p>
+        <p class="location-text">{{deal.title}}</p>
       </div>
       <h5></h5>
     </ion-card>
   </ng-container>
-  <h5 style="text-align: center" *ngIf="nearbyDeals.length === 0">
-    No any deals neraby
+  <h5
+    style="text-align: center; margin-top: 40px"
+    *ngIf="nearbyDeals.length === 0"
+  >
+    Couldn't find any deals nearby!
   </h5>
 </ion-content>

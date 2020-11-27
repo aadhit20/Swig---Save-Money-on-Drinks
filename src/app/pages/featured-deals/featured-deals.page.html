@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar lines="none">
     <ion-back-button slot="start" defaultHref="/tabs/home"></ion-back-button>
-    <ion-title color="primary"> <strong>Featured Deals</strong> </ion-title>
+    <ion-title color="primary"> <strong>All Deals</strong> </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -15,14 +15,26 @@
       <ion-avatar slot="start">
         <ion-img [src]="deal.imageURL"></ion-img>
       </ion-avatar>
-      <ion-list>
+      <ion-list style="width: 100%">
         <ion-label color="primary" class="title-label">
           <strong> {{deal.title}}</strong>
         </ion-label>
-        <ion-label>3 km away</ion-label>
+        <ion-label>{{deal.distance}} away</ion-label>
         <ion-label style="font-size: 12px; margin-top: 15px">
           {{deal.discountInPercentage}}
         </ion-label>
+        <ion-badge
+          color="warning"
+          *ngIf="getCountDownTime(deal.dealEndTime) === 'Expired'"
+          style="float: right"
+          >Expired</ion-badge
+        >
+        <ion-badge
+          color="success"
+          *ngIf="getCountDownTime(deal.dealEndTime) !== 'Expired'"
+          style="float: right"
+          >{{getCountDownTime(deal.dealEndTime)}}</ion-badge
+        >
       </ion-list>
     </ion-item>
   </ion-card>

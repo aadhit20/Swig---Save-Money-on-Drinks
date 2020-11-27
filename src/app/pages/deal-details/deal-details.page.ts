@@ -50,7 +50,7 @@ export class DealDetailsPage implements OnInit {
 
     let mapOptions = {
       center: latLng,
-      zoom: 10,
+      zoom: 15,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
     };
 

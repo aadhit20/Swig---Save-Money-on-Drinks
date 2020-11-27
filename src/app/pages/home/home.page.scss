@@ -24,7 +24,7 @@ ion-row {
       background-position: center;
       background-size: cover;
       background-repeat: no-repeat;
-      height: 150px;
+      height: 160px;
       div {
         background-color: rgba(0, 0, 0, 0.4);
         position: absolute;
@@ -41,8 +41,11 @@ p {
   font-weight: 700;
   font-size: 11px;
 }
-.offer-text {
-  margin: 60px 0 5px 0;
+.offer-text1 {
+  margin: 80px 0 5px 0;
+}
+.offer-text2 {
+  margin: 100px 0 5px 0;
 }
 .location-text {
   margin: 0;
@@ -59,7 +62,7 @@ p {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  height: 150px;
+  height: 180px;
   div {
     background-color: rgba(0, 0, 0, 0.4);
     position: absolute;
@@ -69,4 +72,9 @@ p {
     height: 100%;
     padding: 10px;
   }
+}
+.title-text {
+  font-weight: 700;
+  font-size: 20px !important;
+  padding-bottom: 3px;
 }

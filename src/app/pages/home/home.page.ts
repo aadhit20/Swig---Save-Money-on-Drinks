@@ -18,10 +18,7 @@ import { HttpClient } from "@angular/common/http";
 export class HomePage implements OnInit {
   deals = [];
   nearbyDeals = [];
-  currentPos = {
-    latitude: 6.9271,
-    longitude: 79.8612,
-  };
+  currentPos;
   constructor(
     private dealService: DealsService,
     private router: Router,
@@ -30,7 +27,7 @@ export class HomePage implements OnInit {
   ) {}
 
   ionViewDidEnter() {
-    //  this.getUserPosition();
+    this.getUserPosition();
   }
 
   ngOnInit() {
@@ -74,8 +71,7 @@ export class HomePage implements OnInit {
 
     this.geolocation.getCurrentPosition(options).then(
       (pos: Geoposition) => {
-        //   this.currentPos = pos;
-        console.log(pos);
+        this.currentPos = pos;
       },
       (err: PositionError) => {
         console.log("error : " + err.message);
@@ -106,11 +102,13 @@ export class HomePage implements OnInit {
   }
 
   getDistance(lat, long) {
+    console.log("currentPos", this.currentPos);
+
     let url =
       "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/distancematrix/json?origins=" +
-      this.currentPos.latitude +
+      this.currentPos.coords.latitude +
       "," +
-      this.currentPos.longitude +
+      this.currentPos.coords.longitude +
       "&destinations=" +
       lat +
       "," +
