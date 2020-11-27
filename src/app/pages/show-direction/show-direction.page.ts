@@ -5,14 +5,13 @@ import {
   OnInit,
   ViewChild,
 } from "@angular/core";
-
+declare var google;
 @Component({
   selector: "app-show-direction",
   templateUrl: "./show-direction.page.html",
   styleUrls: ["./show-direction.page.scss"],
 })
 export class ShowDirectionPage implements OnInit, AfterViewInit {
-  google;
   @ViewChild("map") mapElement: ElementRef;
   directionsService = new google.maps.DirectionsService();
   directionsDisplay = new google.maps.DirectionsRenderer();
