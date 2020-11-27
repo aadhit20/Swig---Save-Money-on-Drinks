@@ -26,15 +26,13 @@ export class HomePage implements OnInit {
     private http: HttpClient
   ) {}
 
-  ionViewDidEnter() {
-    this.getUserPosition();
-  }
+  ionViewDidEnter() {}
 
   ngOnInit() {
     this.dealService.getAllDeals().subscribe((res) => {
       this.deals = res;
       console.log(this.deals);
-      this.loadDistance();
+      this.getUserPosition();
     });
   }
 
@@ -72,6 +70,7 @@ export class HomePage implements OnInit {
     this.geolocation.getCurrentPosition(options).then(
       (pos: Geoposition) => {
         this.currentPos = pos;
+        this.loadDistance();
       },
       (err: PositionError) => {
         console.log("error : " + err.message);

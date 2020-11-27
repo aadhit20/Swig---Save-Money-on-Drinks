@@ -26,7 +26,8 @@
               name="camera"
             ></ion-icon>
           </div>
-          <ion-img [src]="imagePath"></ion-img>
+          <ion-img *ngIf="!imagePath" src="assets/images/avatar.jpg"></ion-img>
+          <ion-img *ngIf="imagePath" [src]="imagePath"></ion-img>
         </ion-avatar>
       </div>
     </div>

@@ -2,6 +2,8 @@ import { UserService } from "./../../shared/services/user.service";
 import { Component, OnInit } from "@angular/core";
 import { Plugins, CameraResultType } from "@capacitor/core";
 import { Subscription } from "rxjs";
+import { ToastController } from "@ionic/angular";
+import { Router } from "@angular/router";
 const { Camera } = Plugins;
 @Component({
   selector: "app-profile",
@@ -11,7 +13,11 @@ const { Camera } = Plugins;
 export class ProfilePage implements OnInit {
   userSubscription: Subscription;
   userDetails: any = {};
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private toastController: ToastController,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.subscribeUserDetails();
@@ -36,5 +42,19 @@ export class ProfilePage implements OnInit {
         console.log("Profile page subscription", res);
         this.userDetails = res;
       });
+  }
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: "Invite option coming soon.",
+      duration: 2000,
+      position: "top",
+    });
+    toast.present();
+  }
+
+  logOut() {
+    localStorage.removeItem("email");
+    this.router.navigate(["/login"]);
   }
 }

@@ -36,6 +36,11 @@ export class EditProfilePage implements OnInit {
       loadingEl.present();
       this.userService.loadCurrentUserDetails().subscribe(
         (res: any) => {
+          if (res.profileImage) {
+            this.imagePath = res.profileImage;
+          } else {
+            this.imagePath = "";
+          }
           loadingEl.dismiss();
           this.profileForm.patchValue({
             fname: res.fname,
@@ -54,10 +59,10 @@ export class EditProfilePage implements OnInit {
   async takePicture() {
     const image = await Camera.getPhoto({
       quality: 90,
-      resultType: CameraResultType.Uri,
+      resultType: CameraResultType.Base64,
     });
 
-    var imageUrl = image.webPath;
+    var imageUrl = "data:image/jpeg;base64," + image.base64String;
     console.log(imageUrl);
     this.imagePath = imageUrl;
 
@@ -74,6 +79,7 @@ export class EditProfilePage implements OnInit {
           lname: this.profileForm.value["lname"],
           age: this.profileForm.value["age"],
           location: this.profileForm.value["location"],
+          profileImage: this.imagePath,
         };
         this.userService
           .updateUser(localStorage.getItem("email"), userData)

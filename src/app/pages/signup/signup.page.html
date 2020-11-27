@@ -1,6 +1,7 @@
 <ion-content>
   <div class="full-flex">
-    <ion-img style="width: 50%" src="assets/images/logo.jpg"></ion-img>
+    <!-- <ion-img style="width: 50%" src="assets/images/logo.jpg"></ion-img> -->
+    <h1 style="color: var(--ion-color-primary); font-size: 32px">Swig</h1>
     <p>create an account</p>
     <form [formGroup]="signupForm" (submit)="handleSignUp()">
       <div class="flex-item" style="margin-top: 20px">
@@ -50,7 +51,7 @@
         >
       </ion-item>
     </form>
-
+    <!-- 
     <ion-row class="btn-row">
       <ion-col size="6">
         <ion-button
@@ -64,7 +65,7 @@
           >Facebook</ion-button
         >
       </ion-col>
-    </ion-row>
+    </ion-row> -->
     <p>
       Already have an account?<span
         routerLink="/login"

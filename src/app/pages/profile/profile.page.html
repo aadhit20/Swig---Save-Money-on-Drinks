@@ -14,7 +14,14 @@
   >
     <div class="camera-div">
       <ion-avatar>
-        <ion-img src="assets/images/avatar.jpg"></ion-img>
+        <ion-img
+          *ngIf="!userDetails.profileImage"
+          src="assets/images/avatar.jpg"
+        ></ion-img>
+        <ion-img
+          *ngIf="userDetails.profileImage"
+          [src]="userDetails.profileImage"
+        ></ion-img>
       </ion-avatar>
     </div>
     <h3>{{userDetails.fname}}</h3>
@@ -32,13 +39,13 @@
       <ion-icon color="primary" slot="start" name="call-outline"></ion-icon>
       <ion-label>Contact Us</ion-label>
     </ion-item>
-    <ion-item lines="none">
+    <ion-item (click)="presentToast()" lines="none">
       <ion-icon color="primary" slot="start" name="people-outline"></ion-icon>
       <ion-label>Invite Friends</ion-label>
     </ion-item>
   </ion-card>
   <ion-card>
-    <ion-item lines="none">
+    <ion-item (click)="logOut()" lines="none">
       <ion-icon color="primary" slot="start" name="power-outline"></ion-icon>
       <ion-label>Log Out</ion-label>
     </ion-item>

@@ -1,6 +1,7 @@
 <ion-content>
   <div class="full-flex">
-    <ion-img style="width: 50%" src="assets/images/logo.jpg"></ion-img>
+    <h1 style="color: var(--ion-color-primary); font-size: 32px">Swig</h1>
+    <!-- <ion-img style="width: 50%" src="assets/images/logo.jpg"></ion-img> -->
     <p>sign in to continue</p>
 
     <form [formGroup]="loginForm" (submit)="handleLoginUser()">
@@ -29,7 +30,7 @@
     >
       Forgot Password?
     </p>
-    <ion-row class="btn-row" style="margin-top: 3vh">
+    <!-- <ion-row class="btn-row" style="margin-top: 3vh">
       <ion-col size="6">
         <ion-button
           ><ion-icon style="padding-right: 10px" name="logo-google"></ion-icon
@@ -42,7 +43,7 @@
           >Facebook</ion-button
         >
       </ion-col>
-    </ion-row>
+    </ion-row> -->
     <p style="margin-top: 5vh">
       New to here?<span
         routerLink="/signup"
