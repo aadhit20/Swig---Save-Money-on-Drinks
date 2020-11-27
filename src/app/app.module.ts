@@ -1,3 +1,4 @@
+import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { RouteReuseStrategy } from "@angular/router";
@@ -13,6 +14,9 @@ import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFireModule } from "@angular/fire";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { environment } from "src/environments/environment";
+import { InAppBrowser } from "@ionic-native/in-app-browser/ngx";
+import { AppAvailability } from "@ionic-native/app-availability/ngx";
+import { Geolocation } from "@ionic-native/geolocation/ngx";
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,6 +25,7 @@ import { environment } from "src/environments/environment";
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
+    HttpClientModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireAuthModule,
@@ -28,6 +33,10 @@ import { environment } from "src/environments/environment";
   providers: [
     StatusBar,
     SplashScreen,
+    InAppBrowser,
+    Geolocation,
+    InAppBrowser,
+    AppAvailability,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent],

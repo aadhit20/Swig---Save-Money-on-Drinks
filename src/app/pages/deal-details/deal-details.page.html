@@ -3,13 +3,16 @@
   <div>
     <ion-item lines="none">
       <ion-list>
-        <h3><strong>Pizza Ranch</strong></h3>
-        <ion-label color="primary">20% off from total bill</ion-label>
+        <h3><strong>{{dealDetails.title}}</strong></h3>
+        <ion-label color="primary"
+          >{{dealDetails.discountInPercentage}}</ion-label
+        >
       </ion-list>
-      <ion-badge color="secondary" slot="end"> 25% Off </ion-badge>
+      <!-- <ion-badge color="secondary" slot="end"> 25% Off </ion-badge> -->
     </ion-item>
     <p>{{dealDetails.desciption}}</p>
-    <ion-button> Show Directions </ion-button>
+    <div class="map" #map id="map"></div>
+    <ion-button class="dir-btn"> Show Directions </ion-button>
   </div>
 
   <ion-button (click)="back()" class="back-btn" fill="clear" color="light">

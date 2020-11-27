@@ -49,7 +49,7 @@
   <ion-card
     (click)="dealClicked(deal.id)"
     class="deal-card"
-    *ngFor="let deal of deals"
+    *ngFor="let deal of nearbyDeals"
     [style.background-image]="'url(' + deal.imageURL + ')' "
     style="background-position: center; background-repeat: no-repeat"
   >

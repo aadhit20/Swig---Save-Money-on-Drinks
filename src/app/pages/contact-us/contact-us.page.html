@@ -1,16 +1,35 @@
 <ion-header>
   <ion-toolbar>
     <ion-back-button slot="start"></ion-back-button>
-    <ion-title>
-      <h3><strong>Contact Us</strong></h3>
-    </ion-title>
+    <ion-title color="primary"> <strong>Contact Us</strong> </ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
   <div class="svg-div">
     <ion-img src="assets/images/contact-us.svg"></ion-img>
+    <p class="blue-text">Get in touch with us!</p>
+    <div class="btn-div">
+      <ion-button (click)="emailClick()" size="medium"
+        ><ion-icon style="padding-right: 12px" name="mail-outline"></ion-icon
+        >Email Us
+      </ion-button>
+    </div>
+    <ion-row>
+      <ion-col size="4">
+        <ion-img (click)="fbClick()" src="assets/images/fb-logo.png"></ion-img>
+      </ion-col>
+      <ion-col size="4">
+        <ion-img
+          (click)="twitterClick()"
+          src="assets/images/twitter-logo.png"
+        ></ion-img>
+      </ion-col>
+      <ion-col size="4">
+        <ion-img
+          (click)="instaClick()"
+          src="assets/images/insta-logo.png"
+        ></ion-img>
+      </ion-col>
+    </ion-row>
   </div>
-
-  <p class="blue-text">Get in touch with us!</p>
 </ion-content>
