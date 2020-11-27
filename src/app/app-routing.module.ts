@@ -87,6 +87,10 @@ const routes: Routes = [
     path: 'deal-details',
     loadChildren: () => import('./pages/deal-details/deal-details.module').then( m => m.DealDetailsPageModule)
   },
+  {
+    path: 'error',
+    loadChildren: () => import('./pages/error/error.module').then( m => m.ErrorPageModule)
+  },
 ];
 @NgModule({
   imports: [
