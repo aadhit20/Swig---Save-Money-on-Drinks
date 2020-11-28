@@ -19,6 +19,10 @@ export class ProfilePage implements OnInit {
     private router: Router
   ) {}
 
+  ionViewWillEnter() {
+    this.subscribeUserDetails();
+  }
+
   ngOnInit() {
     this.subscribeUserDetails();
   }

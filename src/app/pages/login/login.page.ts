@@ -104,7 +104,7 @@ export class LoginPage implements OnInit {
   //   }
   // }
 
-  handleLoginUser() {
+  async handleLoginUser() {
     this.showWarnings = true;
     if (this.loginForm.valid) {
       this.loadingCtrl.create({ keyboardClose: true }).then((loadingEl) => {
@@ -118,7 +118,7 @@ export class LoginPage implements OnInit {
             loadingEl.dismiss();
             console.log(res);
             localStorage.setItem("email", this.loginForm.value.email);
-            this.router.navigate(["/home"]);
+            this.router.navigate(["/tabs/home"]);
           },
           async (err) => {
             loadingEl.dismiss();
@@ -131,6 +131,14 @@ export class LoginPage implements OnInit {
           }
         );
       });
+    } else {
+      const alert = await this.alertCtrl.create({
+        header: "Alert",
+        message: "Please check whether all the fields are correct and valid",
+        buttons: ["OK"],
+      });
+
+      await alert.present();
     }
   }
 }

@@ -63,10 +63,19 @@
       <h5></h5>
     </ion-card>
   </ng-container>
-  <h5
-    style="text-align: center; margin-top: 40px"
+  <ion-item
+    lines="none"
     *ngIf="nearbyDeals.length === 0"
+    style="text-align: center; margin-top: 20px"
   >
-    Couldn't find any deals nearby!
-  </h5>
+    <ion-list style="width: 100%; text-align: center">
+      <ion-label color="danger"> No any deals nearby!</ion-label>
+      <ion-button
+        style="text-align: center; width: 60%"
+        (click)="getUserPosition()"
+      >
+        Try Again
+      </ion-button>
+    </ion-list>
+  </ion-item>
 </ion-content>

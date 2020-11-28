@@ -1,3 +1,4 @@
+import { HomeGuard } from "./../pages/home/home.guard";
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { TabsPage } from "./tabs.page";
@@ -11,6 +12,7 @@ const routes: Routes = [
         path: "home",
         loadChildren: () =>
           import("../pages/home/home.module").then((m) => m.HomePageModule),
+        canActivate: [HomeGuard],
       },
       {
         path: "profile",

@@ -17,6 +17,8 @@ import { environment } from "src/environments/environment";
 import { InAppBrowser } from "@ionic-native/in-app-browser/ngx";
 import { AppAvailability } from "@ionic-native/app-availability/ngx";
 import { Geolocation } from "@ionic-native/geolocation/ngx";
+import { AndroidPermissions } from "@ionic-native/android-permissions/ngx";
+import { LocationAccuracy } from "@ionic-native/location-accuracy/ngx";
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,7 +36,9 @@ import { Geolocation } from "@ionic-native/geolocation/ngx";
     StatusBar,
     SplashScreen,
     InAppBrowser,
+    AndroidPermissions,
     Geolocation,
+    LocationAccuracy,
     InAppBrowser,
     AppAvailability,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

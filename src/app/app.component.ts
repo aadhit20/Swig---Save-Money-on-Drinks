@@ -1,3 +1,4 @@
+import { AndroidPermissions } from "@ionic-native/android-permissions/ngx";
 import { Router } from "@angular/router";
 import { Component } from "@angular/core";
 
@@ -5,6 +6,7 @@ import { Platform } from "@ionic/angular";
 import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { Plugins } from "@capacitor/core";
+import { LocationAccuracy } from "@ionic-native/location-accuracy/ngx";
 
 const { Network } = Plugins;
 @Component({
@@ -17,7 +19,9 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private router: Router
+    private router: Router,
+    private androidPermissions: AndroidPermissions,
+    private locationAccuracy: LocationAccuracy
   ) {
     this.initializeApp();
   }
@@ -40,15 +44,5 @@ export class AppComponent {
     if (!status.connected) {
       this.router.navigate(["/error"]);
     }
-    // To stop listening:
-    // handler.remove();
-
-    // Get the current network status
-
-    // Example output:
-    // {
-    //   "connected": true,
-    //   "connectionType": "wifi"
-    // }
   }
 }

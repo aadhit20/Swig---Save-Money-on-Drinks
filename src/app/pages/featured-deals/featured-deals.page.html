@@ -19,7 +19,7 @@
         <ion-label color="primary" class="title-label">
           <strong> {{deal.title}}</strong>
         </ion-label>
-        <ion-label>{{deal.distance}} away</ion-label>
+        <ion-label *ngIf="deal.distance">{{deal.distance}} away</ion-label>
         <ion-label style="font-size: 12px; margin-top: 15px">
           {{deal.discountInPercentage}}
         </ion-label>
