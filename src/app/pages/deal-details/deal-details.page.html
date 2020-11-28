@@ -12,7 +12,9 @@
     </ion-item>
     <p>{{dealDetails.desciption}}</p>
     <div class="map" #map id="map"></div>
-    <ion-button class="dir-btn"> Show Directions </ion-button>
+    <ion-button (click)="showDirections()" class="dir-btn">
+      Show Directions
+    </ion-button>
   </div>
 
   <ion-button (click)="back()" class="back-btn" fill="clear" color="light">

@@ -1,3 +1,4 @@
+import { Geolocation, Geoposition } from "@ionic-native/geolocation/ngx";
 import {
   AfterViewInit,
   Component,
@@ -5,6 +6,8 @@ import {
   OnInit,
   ViewChild,
 } from "@angular/core";
+import { Route } from "@angular/compiler/src/core";
+import { ActivatedRoute } from "@angular/router";
 declare var google;
 @Component({
   selector: "app-show-direction",
@@ -19,38 +22,82 @@ export class ShowDirectionPage implements OnInit, AfterViewInit {
     lat: 5.9774,
     lng: 80.4288,
   };
+  destinationLat;
+  destinationLng;
+  map;
+  constructor(
+    private geolocation: Geolocation,
+    private route: ActivatedRoute
+  ) {}
 
-  constructor() {}
   ngAfterViewInit(): void {
-    const map = new google.maps.Map(this.mapElement.nativeElement, {
-      zoom: 7,
-      center: { lat: 5.9774, lng: 80.4288 },
+    this.route.queryParams.subscribe((params) => {
+      this.destinationLat = params["lat"];
+      this.destinationLng = params["lng"];
+
+      this.map = new google.maps.Map(this.mapElement.nativeElement, {
+        zoom: 7,
+      });
+      this.directionsDisplay.setMap(this.map);
+
+      this.getUserPosition();
     });
-    this.directionsDisplay.setMap(map);
-    let x = {
-      lat: 6.0535,
-      lng: 80.221,
-    };
-    this.calculateAndDisplayRoute(x);
   }
 
   ngOnInit() {}
 
-  calculateAndDisplayRoute(formValues) {
+  calculateAndDisplayRoute() {
     const that = this;
     this.directionsService.route(
       {
         origin: this.currentLocation,
-        destination: "6.0535,80.221",
+        destination: +this.destinationLat + "," + +this.destinationLng,
         travelMode: google.maps.TravelMode.DRIVING,
       },
       (response, status) => {
         if (status === "OK") {
           that.directionsDisplay.setDirections(response);
+          this.makeMarker();
         } else {
-          window.alert("Directions request failed due to " + status);
+          alert("Directions request failed due to " + status);
         }
       }
     );
+  }
+
+  getUserPosition() {
+    let options = {
+      enableHighAccuracy: true,
+    };
+
+    this.geolocation
+      .getCurrentPosition(options)
+      .then(
+        (pos: Geoposition) => {
+          this.currentLocation.lat = pos.coords.latitude;
+          this.currentLocation.lng = pos.coords.longitude;
+          this.calculateAndDisplayRoute();
+        },
+        (err: PositionError) => {
+          alert(JSON.stringify(err));
+          console.log("error : " + err.message);
+        }
+      )
+      .catch((err) => {
+        alert(JSON.stringify(err));
+      });
+  }
+  start;
+  destination;
+  makeMarker() {
+    // this.start = new google.maps.Marker({
+    //   position: +this.currentLocation.lat + "," + +this.currentLocation.lng,
+    //   map: this.map,
+    // });
+    // this.destination = new google.maps.Marker({
+    //   position: +this.destinationLat + "," + +this.destinationLng,
+    //   map: this.map,
+    //   title: "Test des",
+    // });
   }
 }

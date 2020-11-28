@@ -1,7 +1,7 @@
 import { LoadingController } from "@ionic/angular";
 import { DealsService } from "./../../shared/services/deals.service";
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Location } from "@angular/common";
 declare var google;
 @Component({
@@ -17,7 +17,8 @@ export class DealDetailsPage implements OnInit {
     private route: ActivatedRoute,
     private dealService: DealsService,
     private loadingCtrl: LoadingController,
-    private location: Location
+    private location: Location,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -42,7 +43,7 @@ export class DealDetailsPage implements OnInit {
   }
 
   back() {
-    this.location.back();
+    this.router.navigate(["/tabs/home"]);
   }
 
   addMap(lat, long) {
@@ -72,6 +73,15 @@ export class DealDetailsPage implements OnInit {
 
     google.maps.event.addListener(marker, "click", () => {
       infoWindow.open(this.map, marker);
+    });
+  }
+
+  showDirections() {
+    this.router.navigate(["/show-direction"], {
+      queryParams: {
+        lat: +this.dealDetails.latitude,
+        lng: +this.dealDetails.longitude,
+      },
     });
   }
 }
