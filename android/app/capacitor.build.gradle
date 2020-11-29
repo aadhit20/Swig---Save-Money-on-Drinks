@@ -9,8 +9,10 @@ android {
 
 apply from: "../capacitor-cordova-android-plugins/cordova.variables.gradle"
 dependencies {
-    implementation project(':rdlabo-capacitor-facebook-login')
+
     implementation "com.google.android.gms:play-services-location:16.+"
+    implementation project(':rdlabo-capacitor-facebook-login')
+
 }
 
 
