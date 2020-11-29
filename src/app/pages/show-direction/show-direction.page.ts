@@ -1,3 +1,4 @@
+import { AlertController } from "@ionic/angular";
 import { Geolocation, Geoposition } from "@ionic-native/geolocation/ngx";
 import {
   AfterViewInit,
@@ -27,7 +28,8 @@ export class ShowDirectionPage implements OnInit, AfterViewInit {
   map;
   constructor(
     private geolocation: Geolocation,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private alertCtrl: AlertController
   ) {}
 
   ngAfterViewInit(): void {
@@ -78,13 +80,23 @@ export class ShowDirectionPage implements OnInit, AfterViewInit {
           this.currentLocation.lng = pos.coords.longitude;
           this.calculateAndDisplayRoute();
         },
-        (err: PositionError) => {
-          alert(JSON.stringify(err));
+        async (err: PositionError) => {
+          const alert = await this.alertCtrl.create({
+            header: "Error",
+            message: "Couldn't find location",
+            buttons: ["Okay"],
+          });
+          await alert.present();
           console.log("error : " + err.message);
         }
       )
-      .catch((err) => {
-        alert(JSON.stringify(err));
+      .catch(async (err) => {
+        const alert = await this.alertCtrl.create({
+          header: "Error",
+          message: "Couldn't find location",
+          buttons: ["Okay"],
+        });
+        await alert.present();
       });
   }
   start;

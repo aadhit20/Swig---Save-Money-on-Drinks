@@ -2,6 +2,8 @@
 <resources>
     <string name="app_name">Swig</string>
     <string name="title_activity_main">Swig</string>
-    <string name="package_name">io.ionic.starter</string>
-    <string name="custom_url_scheme">io.ionic.starter</string>
+    <string name="package_name">com.onlinedeals.swig</string>
+    <string name="custom_url_scheme">com.onlinedeals.swig</string>
+    <string name="facebook_app_id">2741896869392506</string>
+<string name="fb_login_protocol_scheme">fb2741896869392506</string>
 </resources>

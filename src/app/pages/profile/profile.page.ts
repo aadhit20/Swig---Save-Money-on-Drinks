@@ -57,7 +57,10 @@ export class ProfilePage implements OnInit {
     toast.present();
   }
 
-  logOut() {
+  async logOut() {
+    if (JSON.parse(localStorage.getItem("isFacebookLogin"))) {
+      await Plugins.FacebookLogin.logout();
+    }
     localStorage.removeItem("email");
     this.router.navigate(["/login"]);
   }

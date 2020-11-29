@@ -34,6 +34,20 @@ export class UserService {
       );
     });
   }
+  public getUserDetailsById(email): Observable<User> {
+    return new Observable<User>((observer) => {
+      const docRef = this.afs.doc(`users/${email}`);
+      const userData = docRef.get().subscribe(
+        (res: any) => {
+          observer.next(res.data());
+          observer.complete();
+        },
+        (err) => {
+          observer.error(err);
+        }
+      );
+    });
+  }
 
   public loadCurrentUserDetails() {
     let email = localStorage.getItem("email");

@@ -96,7 +96,7 @@ export class ContactUsPage implements OnInit {
   }
 
   emailClick() {
-    window.location.href = "mailto:" + "hola@taskjornal.com";
+    window.location.href = "mailto:" + "swigofficial@gmail.com";
   }
 
   instaClick() {

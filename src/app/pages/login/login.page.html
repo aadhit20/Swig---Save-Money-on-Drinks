@@ -1,7 +1,7 @@
 <ion-content>
   <div class="full-flex">
-    <h1 style="color: var(--ion-color-primary); font-size: 32px">Swig</h1>
-    <!-- <ion-img style="width: 50%" src="assets/images/logo.jpg"></ion-img> -->
+    <!-- <h1 style="color: var(--ion-color-primary); font-size: 32px">Swig</h1> -->
+    <ion-img style="width: 60%" src="assets/images/logo.png"></ion-img>
     <p>sign in to continue</p>
 
     <form [formGroup]="loginForm" (submit)="handleLoginUser()">
@@ -24,10 +24,7 @@
         <ion-button type="submit" class="flex-btn">Sign In</ion-button>
       </div>
     </form>
-    <p
-      routerLink="/forgot-password"
-      style="color: var(--ion-color-primary); outline: none; margin-top: 4vh"
-    >
+    <p routerLink="/forgot-password" style="outline: none; margin-top: 4vh">
       Forgot Password?
     </p>
     <!-- <ion-row class="btn-row" style="margin-top: 3vh">
@@ -37,19 +34,28 @@
           >Google</ion-button
         >
       </ion-col>
-      <ion-col size="6">
-        <ion-button
-          ><ion-icon style="padding-right: 10px" name="logo-facebook"></ion-icon
+      <ion-col size="12">
+        <ion-button class="flex-btn"
+          ><ion-icon
+            style="padding-right: 10px; color: #3b5998"
+            name="logo-facebook"
+          ></ion-icon
           >Facebook</ion-button
         >
       </ion-col>
     </ion-row> -->
-    <p style="margin-top: 5vh">
-      New to here?<span
-        routerLink="/signup"
-        style="color: var(--ion-color-primary); outline: none"
+    <div class="flex-item" style="margin-top: 5vh">
+      <ion-button (click)="facebookLogin()" class="flex-btn social-btn"
+        ><ion-icon
+          style="padding-right: 10px; color: #3b5998"
+          name="logo-facebook"
+        ></ion-icon
+        >Log In with Facebook</ion-button
       >
-        Signup Here
+    </div>
+    <p style="margin-top: 5vh">
+      New to here?<span routerLink="/signup" style="outline: none">
+        <strong> Signup Here</strong>
       </span>
     </p>
   </div>

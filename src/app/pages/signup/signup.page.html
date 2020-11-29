@@ -1,10 +1,9 @@
 <ion-content>
   <div class="full-flex">
-    <!-- <ion-img style="width: 50%" src="assets/images/logo.jpg"></ion-img> -->
-    <h1 style="color: var(--ion-color-primary); font-size: 32px">Swig</h1>
+    <ion-img style="width: 60%" src="assets/images/logo.png"></ion-img>
     <p>create an account</p>
     <form [formGroup]="signupForm" (submit)="handleSignUp()">
-      <div class="flex-item" style="margin-top: 20px">
+      <div class="flex-item" style="margin-top: 3vh">
         <ion-input
           formControlName="fname"
           placeholder="First Name"
@@ -43,7 +42,7 @@
       <div class="flex-item">
         <ion-button type="submit" class="flex-btn">Sign Up</ion-button>
       </div>
-      <ion-item style="margin-top: 10px" lines="none">
+      <ion-item style="margin-top: 5px" lines="none">
         <ion-checkbox formControlName="gtc" slot="start"></ion-checkbox>
         <ion-text style="font-size: 12px"
           >By creating an account or logging in, you agree to swig's Terms &
@@ -51,6 +50,15 @@
         >
       </ion-item>
     </form>
+    <div class="flex-item" style="margin: 0 0 10px">
+      <ion-button class="flex-btn social-btn"
+        ><ion-icon
+          style="padding-right: 10px; color: #3b5998"
+          name="logo-facebook"
+        ></ion-icon
+        >Sign Up with Facebook</ion-button
+      >
+    </div>
     <!-- 
     <ion-row class="btn-row">
       <ion-col size="6">
@@ -67,11 +75,8 @@
       </ion-col>
     </ion-row> -->
     <p>
-      Already have an account?<span
-        routerLink="/login"
-        style="color: var(--ion-color-primary); outline: none"
-      >
-        Login Here
+      Already have an account?<span routerLink="/login" style="outline: none">
+        <strong> Login Here</strong>
       </span>
     </p>
   </div>
