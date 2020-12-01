@@ -8,7 +8,7 @@ import {
   ViewChild,
 } from "@angular/core";
 import { Route } from "@angular/compiler/src/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 declare var google;
 @Component({
   selector: "app-show-direction",
@@ -29,7 +29,8 @@ export class ShowDirectionPage implements OnInit, AfterViewInit {
   constructor(
     private geolocation: Geolocation,
     private route: ActivatedRoute,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private router: Router
   ) {}
 
   ngAfterViewInit(): void {
@@ -56,12 +57,18 @@ export class ShowDirectionPage implements OnInit, AfterViewInit {
         destination: +this.destinationLat + "," + +this.destinationLng,
         travelMode: google.maps.TravelMode.DRIVING,
       },
-      (response, status) => {
+      async (response, status) => {
         if (status === "OK") {
           that.directionsDisplay.setDirections(response);
           this.makeMarker();
         } else {
-          alert("Directions request failed due to " + status);
+          const alert = await this.alertCtrl.create({
+            header: "Error",
+            message: "Couldn't find any route from your current location",
+            buttons: ["Okay"],
+          });
+          await alert.present();
+          this.router.navigate(["/deal-details"]);
         }
       }
     );

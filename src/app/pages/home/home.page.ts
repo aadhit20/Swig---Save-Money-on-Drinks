@@ -121,6 +121,8 @@ export class HomePage implements OnInit {
       )
       .then(
         (result) => {
+          console.log(result, "home");
+
           if (result.hasPermission) {
             //If having permission show 'Turn On GPS' dialogue
             this.askToTurnOnGPS();
