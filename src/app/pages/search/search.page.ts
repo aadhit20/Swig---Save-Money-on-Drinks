@@ -16,7 +16,7 @@ export class SearchPage implements OnInit {
 
   ngOnInit() {
     this.dealService.getAllDeals().subscribe((res) => {
-      this.deals = res;
+      this.deals = this.filterDeals(res);
       this.dealsUnfiltered = this.deals;
     });
   }
@@ -41,6 +41,12 @@ export class SearchPage implements OnInit {
 
     //  console.log(timeRemaining);
     return timeRemaining;
+  }
+
+  filterDeals(list) {
+    return list.filter((deal) => {
+      return this.getCountDownTime(deal.dealEndTime) !== "Expired";
+    });
   }
 
   dealClicked(id) {

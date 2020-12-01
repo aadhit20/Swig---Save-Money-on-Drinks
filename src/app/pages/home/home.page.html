@@ -25,14 +25,16 @@
   </ion-item>
 
   <ion-row>
-    <ion-col size="8" *ngFor="let deal of deals">
+    <ion-col size="8" *ngFor="let deal of featuredDeals">
       <ion-card
         (click)="dealClicked(deal.id)"
         [style.background-image]="'url(' + deal.imageURL + ')' "
         style="background-position: center; background-repeat: no-repeat"
       >
         <div>
-          <p class="time-remaining">{{getCountDownTime(deal.dealEndTime)}}</p>
+          <p class="time-remaining">
+            {{getCountDownTime(deal.dealEndTime, deal.id)}}
+          </p>
 
           <p class="offer-text1">{{deal.discountInPercentage}}</p>
           <p class="location-text">{{deal.title}}</p>

@@ -56,4 +56,19 @@ export class DealsService {
       );
     });
   }
+
+  updateDeal(id, values): Observable<any> {
+    return new Observable<any>((observer) => {
+      const docRef = this.afs.doc(`deals/${id}`);
+      docRef.update(values).then(
+        (res) => {
+          observer.next(res);
+          observer.complete();
+        },
+        (err) => {
+          observer.error(err);
+        }
+      );
+    });
+  }
 }

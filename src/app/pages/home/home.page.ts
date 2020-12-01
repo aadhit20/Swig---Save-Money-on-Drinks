@@ -21,6 +21,7 @@ import { LocationAccuracy } from "@ionic-native/location-accuracy/ngx";
 export class HomePage implements OnInit {
   deals = [];
   nearbyDeals = [];
+  featuredDeals = [];
   currentPos;
   constructor(
     private dealService: DealsService,
@@ -36,34 +37,36 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.dealService.getAllDeals().subscribe((res) => {
-      this.deals = res;
-      console.log(this.deals);
+      this.deals = this.filterDeals(res);
       this.checkGPSPermission();
-      //    this.getUserPosition();
-      //   this.locationService.checkGPSPermission();
+    });
+    this.dealService.getAllFeaturedDeals().subscribe((res) => {
+      this.featuredDeals = this.filterDeals(res);
     });
   }
 
-  getCountDownTime(date: string) {
+  getCountDownTime(date: string, id) {
     let timeRemaining;
     let endDate = new Date(date).getTime();
     let todayDate = new Date().getTime();
     let distance = endDate - todayDate;
-
     var days = Math.floor(distance / (1000 * 60 * 60 * 24));
     var hours = Math.floor(
       (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
     );
     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-
     if (distance < 0) {
       timeRemaining = "Expired";
     } else {
       timeRemaining = days + "d " + hours + "h " + minutes + "m remaining";
     }
-
-    //  console.log(timeRemaining);
     return timeRemaining;
+  }
+
+  filterDeals(list) {
+    return list.filter((deal) => {
+      return this.getCountDownTime(deal.dealEndTime, deal.id) !== "Expired";
+    });
   }
 
   dealClicked(id) {

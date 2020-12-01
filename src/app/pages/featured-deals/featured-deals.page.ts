@@ -25,9 +25,7 @@ export class FeaturedDealsPage implements OnInit {
 
   ngOnInit() {
     this.dealService.getAllDeals().subscribe((resp: any) => {
-      console.log("Working here");
-      console.log(resp);
-      this.featuredDeals = resp;
+      this.featuredDeals = this.filterDeals(resp);
       this.getUserPosition();
     });
   }
@@ -52,6 +50,12 @@ export class FeaturedDealsPage implements OnInit {
 
     //  console.log(timeRemaining);
     return timeRemaining;
+  }
+
+  filterDeals(list) {
+    return list.filter((deal) => {
+      return this.getCountDownTime(deal.dealEndTime) !== "Expired";
+    });
   }
 
   dealClicked(id) {
