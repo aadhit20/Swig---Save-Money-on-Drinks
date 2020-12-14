@@ -17,7 +17,6 @@
   <ion-item style="margin-top: 15px" class="description-item" lines="none">
     <ion-list>
       <ion-label class="title-text" color="primary">Featured Deals</ion-label>
-      <ion-label class="detail-text">Use these deals once a month</ion-label>
     </ion-list>
     <ion-button routerLink="/tabs/featured-deals" slot="end"
       >See All</ion-button
@@ -32,9 +31,7 @@
         style="background-position: center; background-repeat: no-repeat"
       >
         <div>
-          <p class="time-remaining">
-            {{getCountDownTime(deal.dealEndTime, deal.id)}}
-          </p>
+          <p class="time-remaining">{{getCountDownTime(deal.dealEndTime)}}</p>
 
           <p class="offer-text1">{{deal.discountInPercentage}}</p>
           <p class="location-text">{{deal.title}}</p>
@@ -46,7 +43,6 @@
   <ion-item style="margin-top: 30px" class="description-item" lines="none">
     <ion-list>
       <ion-label class="title-text" color="primary">Deals Nearby</ion-label>
-      <ion-label class="detail-text">Use these deals once a month</ion-label>
     </ion-list>
   </ion-item>
 

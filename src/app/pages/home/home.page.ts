@@ -45,7 +45,7 @@ export class HomePage implements OnInit {
     });
   }
 
-  getCountDownTime(date: string, id) {
+  getCountDownTime(date: string) {
     let timeRemaining;
     let endDate = new Date(date).getTime();
     let todayDate = new Date().getTime();
@@ -65,7 +65,7 @@ export class HomePage implements OnInit {
 
   filterDeals(list) {
     return list.filter((deal) => {
-      return this.getCountDownTime(deal.dealEndTime, deal.id) !== "Expired";
+      return this.getCountDownTime(deal.dealEndTime) !== "Expired";
     });
   }
 

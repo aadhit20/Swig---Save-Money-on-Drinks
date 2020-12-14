@@ -23,21 +23,7 @@ export class ProfilePage implements OnInit {
     this.subscribeUserDetails();
   }
 
-  ngOnInit() {
-    this.subscribeUserDetails();
-  }
-
-  async takePicture() {
-    const image = await Camera.getPhoto({
-      quality: 90,
-      allowEditing: true,
-      resultType: CameraResultType.Uri,
-    });
-
-    var imageUrl = image.webPath;
-    // Can be set to the src of an image now
-    //  imageElement.src = imageUrl;
-  }
+  ngOnInit() {}
 
   public subscribeUserDetails() {
     this.userSubscription = this.userService

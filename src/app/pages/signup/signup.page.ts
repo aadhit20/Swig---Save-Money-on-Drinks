@@ -74,7 +74,10 @@ export class SignupPage implements OnInit {
       gtc: new FormControl(false),
       fname: new FormControl("", Validators.compose([Validators.required])),
       lname: new FormControl("", Validators.compose([Validators.required])),
-      age: new FormControl("", Validators.compose([Validators.required])),
+      age: new FormControl(
+        "",
+        Validators.compose([Validators.required, Validators.min(18)])
+      ),
     });
   }
 

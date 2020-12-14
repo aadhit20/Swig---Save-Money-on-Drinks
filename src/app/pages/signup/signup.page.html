@@ -20,9 +20,15 @@
       <div class="flex-item">
         <ion-input
           formControlName="age"
+          type="number"
           placeholder="Age"
           class="flex-input"
         ></ion-input>
+      </div>
+      <div
+        *ngIf="signupForm.get('age').invalid && (signupForm.get('age').dirty || signupForm.get('age').touched)"
+      >
+        <p class="alert-message">You should be over 17 years to register</p>
       </div>
       <div class="flex-item">
         <ion-input
@@ -31,6 +37,11 @@
           class="flex-input"
         ></ion-input>
       </div>
+      <div
+        *ngIf="signupForm.get('email').invalid && (signupForm.get('email').dirty || signupForm.get('email').touched)"
+      >
+        <p class="alert-message">Enter a valid email.</p>
+      </div>
       <div class="flex-item">
         <ion-input
           type="password"
@@ -38,6 +49,11 @@
           placeholder="Password"
           class="flex-input"
         ></ion-input>
+      </div>
+      <div
+        *ngIf="signupForm.get('password').invalid && (signupForm.get('password').dirty || signupForm.get('password').touched)"
+      >
+        <p class="alert-message">Password must be at least 6 characters long</p>
       </div>
       <div class="flex-item">
         <ion-button type="submit" class="flex-btn">Sign Up</ion-button>
@@ -50,7 +66,7 @@
         >
       </ion-item>
     </form>
-    <div class="flex-item" style="margin: 0 0 10px">
+    <!-- <div class="flex-item" style="margin: 0 0 10px">
       <ion-button (click)="facebookLogin()" class="flex-btn social-btn"
         ><ion-icon
           style="padding-right: 10px; color: #3b5998"
@@ -58,7 +74,7 @@
         ></ion-icon
         >Sign Up with Facebook</ion-button
       >
-    </div>
+    </div> -->
     <!-- 
     <ion-row class="btn-row">
       <ion-col size="6">
