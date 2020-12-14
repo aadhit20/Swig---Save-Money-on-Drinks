@@ -57,3 +57,9 @@ ion-button {
   --background: #f0f0f0;
   font-size: 14px;
 }
+.alert-message {
+  color: var(--ion-color-danger);
+  padding-left: 30px;
+  font-size: 12px;
+  margin: 0 0 10px;
+}

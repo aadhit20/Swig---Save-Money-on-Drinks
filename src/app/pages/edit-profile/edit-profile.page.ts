@@ -29,7 +29,10 @@ export class EditProfilePage implements OnInit {
     this.profileForm = this.formBuilder.group({
       fname: new FormControl("", Validators.compose([Validators.required])),
       lname: new FormControl("", Validators.compose([Validators.required])),
-      age: new FormControl(""),
+      age: new FormControl(
+        "",
+        Validators.compose([Validators.required, Validators.min(17)])
+      ),
       location: new FormControl(""),
     });
     this.loadingCtrl.create({ keyboardClose: true }).then((loadingEl) => {
@@ -58,16 +61,13 @@ export class EditProfilePage implements OnInit {
 
   async takePicture() {
     const image = await Camera.getPhoto({
-      quality: 90,
+      quality: 50,
       resultType: CameraResultType.Base64,
     });
 
     var imageUrl = "data:image/jpeg;base64," + image.base64String;
     console.log(imageUrl);
     this.imagePath = imageUrl;
-
-    // Can be set to the src of an image now
-    //  imageElement.src = imageUrl;
   }
 
   async updateDetails() {

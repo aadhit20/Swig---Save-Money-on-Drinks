@@ -6,5 +6,8 @@
 </ion-header>
 
 <ion-content>
-  <div class="map" #map id="map"></div>
+  <div *ngIf="!showErrorPage" class="map" #map id="map"></div>
+  <ion-label *ngIf="showErrorPage" color="danger"
+    >Couldn't find any directions</ion-label
+  >
 </ion-content>

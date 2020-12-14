@@ -53,11 +53,17 @@
         <p style="margin-top: 10px" class="input-title">Age</p>
         <div style="padding: 0 0 0 16px" class="flex-item">
           <ion-input
+            type="number"
             formControlName="age"
             type="number"
             placeholder="Age"
             class="flex-input"
           ></ion-input>
+        </div>
+        <div
+          *ngIf="profileForm.get('age').invalid && (profileForm.get('age').dirty || profileForm.get('age').touched)"
+        >
+          <p class="alert-message">You should be over 17 years</p>
         </div>
       </ion-col>
       <ion-col size="9">

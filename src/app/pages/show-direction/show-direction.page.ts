@@ -1,5 +1,9 @@
 import { AlertController } from "@ionic/angular";
-import { Geolocation, Geoposition } from "@ionic-native/geolocation/ngx";
+import {
+  Geolocation,
+  Geoposition,
+  PositionError,
+} from "@ionic-native/geolocation/ngx";
 import {
   AfterViewInit,
   Component,
@@ -16,6 +20,7 @@ declare var google;
   styleUrls: ["./show-direction.page.scss"],
 })
 export class ShowDirectionPage implements OnInit, AfterViewInit {
+  showErrorPage: boolean = false;
   @ViewChild("map") mapElement: ElementRef;
   directionsService = new google.maps.DirectionsService();
   directionsDisplay = new google.maps.DirectionsRenderer();
@@ -34,12 +39,13 @@ export class ShowDirectionPage implements OnInit, AfterViewInit {
   ) {}
 
   ngAfterViewInit(): void {
+    this.showErrorPage = false;
     this.route.queryParams.subscribe((params) => {
       this.destinationLat = params["lat"];
       this.destinationLng = params["lng"];
 
       this.map = new google.maps.Map(this.mapElement.nativeElement, {
-        zoom: 7,
+        zoom: 8,
       });
       this.directionsDisplay.setMap(this.map);
 

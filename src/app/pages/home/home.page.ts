@@ -1,7 +1,8 @@
+import { AlertController } from "@ionic/angular";
 import { Router } from "@angular/router";
 import { DealsService } from "./../../shared/services/deals.service";
 import { Component, OnInit } from "@angular/core";
-import { from, timer } from "rxjs";
+import { from, Subscription, timer } from "rxjs";
 import {
   Geolocation,
   GeolocationOptions,
@@ -19,6 +20,7 @@ import { LocationAccuracy } from "@ionic-native/location-accuracy/ngx";
   styleUrls: ["./home.page.scss"],
 })
 export class HomePage implements OnInit {
+  dealSubscription: Subscription;
   deals = [];
   nearbyDeals = [];
   featuredDeals = [];
@@ -30,16 +32,22 @@ export class HomePage implements OnInit {
     private http: HttpClient,
     private locationService: LocationService,
     private androidPermissions: AndroidPermissions,
-    private locationAccuracy: LocationAccuracy
+    private locationAccuracy: LocationAccuracy,
+    private alertController: AlertController
   ) {}
 
-  ionViewDidEnter() {}
-
-  ngOnInit() {
-    this.dealService.getAllDeals().subscribe((res) => {
+  ionViewWillEnter() {
+    this.dealSubscription = this.dealService.getAllDeals().subscribe((res) => {
       this.deals = this.filterDeals(res);
       this.checkGPSPermission();
     });
+  }
+
+  ionViewWillLeave() {
+    this.dealSubscription.unsubscribe();
+  }
+
+  ngOnInit() {
     this.dealService.getAllFeaturedDeals().subscribe((res) => {
       this.featuredDeals = this.filterDeals(res);
     });
@@ -91,7 +99,7 @@ export class HomePage implements OnInit {
         }
       )
       .catch((err) => {
-        alert(JSON.stringify(err));
+        //    alert(JSON.stringify(err));
       });
   }
 
@@ -134,8 +142,13 @@ export class HomePage implements OnInit {
             this.requestGPSPermission();
           }
         },
-        (err) => {
-          alert(err);
+        async (err) => {
+          const alert = await this.alertController.create({
+            header: "Warning",
+            message: "Please enable location permissions to continue",
+            buttons: ["Okay"],
+          });
+          alert.present();
         }
       );
   }
