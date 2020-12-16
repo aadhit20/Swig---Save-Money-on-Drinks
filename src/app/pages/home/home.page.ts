@@ -36,18 +36,13 @@ export class HomePage implements OnInit {
     private alertController: AlertController
   ) {}
 
-  ionViewWillEnter() {
+  ionViewWillEnter() {}
+
+  ngOnInit() {
     this.dealSubscription = this.dealService.getAllDeals().subscribe((res) => {
       this.deals = this.filterDeals(res);
       this.checkGPSPermission();
     });
-  }
-
-  ionViewWillLeave() {
-    this.dealSubscription.unsubscribe();
-  }
-
-  ngOnInit() {
     this.dealService.getAllFeaturedDeals().subscribe((res) => {
       this.featuredDeals = this.filterDeals(res);
     });
@@ -93,8 +88,15 @@ export class HomePage implements OnInit {
           this.currentPos = pos;
           this.loadDistance();
         },
-        (err: PositionError) => {
-          alert(JSON.stringify(err));
+        async (err: PositionError) => {
+          //         alert(JSON.stringify(err));
+          //   const alert = await this.alertController.create({
+          //   header: "Warning",
+          //   message:
+          //     "Couldn't get your location, Please check your location permission and services",
+          //   buttons: ["Okay"],
+          // });
+          // alert.present();
           console.log("error : " + err.message);
         }
       )

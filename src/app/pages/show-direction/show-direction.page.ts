@@ -74,7 +74,7 @@ export class ShowDirectionPage implements OnInit, AfterViewInit {
             buttons: ["Okay"],
           });
           await alert.present();
-          this.router.navigate(["/deal-details"]);
+          //         this.router.navigate(["/deal-details"]);
         }
       }
     );
