@@ -1,18 +1,17 @@
-import { AlertController } from "@ionic/angular";
+import { AlertController, Platform } from "@ionic/angular";
 import { Router } from "@angular/router";
 import { DealsService } from "./../../shared/services/deals.service";
 import { Component, OnInit } from "@angular/core";
-import { from, Subscription, timer } from "rxjs";
+import { Subscription } from "rxjs";
 import {
   Geolocation,
-  GeolocationOptions,
   Geoposition,
   PositionError,
 } from "@ionic-native/geolocation/ngx";
 import { HttpClient } from "@angular/common/http";
-import { LocationService } from "src/app/shared/services/location.service";
 import { AndroidPermissions } from "@ionic-native/android-permissions/ngx";
 import { LocationAccuracy } from "@ionic-native/location-accuracy/ngx";
+import * as moment from "moment";
 
 @Component({
   selector: "app-home",
@@ -25,24 +24,30 @@ export class HomePage implements OnInit {
   nearbyDeals = [];
   featuredDeals = [];
   currentPos;
+  errorText = "No nearby deals found";
   constructor(
     private dealService: DealsService,
     private router: Router,
     private geolocation: Geolocation,
     private http: HttpClient,
-    private locationService: LocationService,
     private androidPermissions: AndroidPermissions,
     private locationAccuracy: LocationAccuracy,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private platform: Platform
   ) {}
 
   ionViewWillEnter() {}
 
   ngOnInit() {
-    this.dealSubscription = this.dealService.getAllDeals().subscribe((res) => {
-      this.deals = this.filterDeals(res);
+    this.platform.ready().then(() => {
       this.checkGPSPermission();
     });
+    this.dealSubscription = this.dealService
+      .getAllDeals()
+      .subscribe(async (res) => {
+        this.deals = await this.filterDeals(res);
+        this.getUserPosition();
+      });
     this.dealService.getAllFeaturedDeals().subscribe((res) => {
       this.featuredDeals = this.filterDeals(res);
     });
@@ -68,7 +73,10 @@ export class HomePage implements OnInit {
 
   filterDeals(list) {
     return list.filter((deal) => {
-      return this.getCountDownTime(deal.dealEndTime) !== "Expired";
+      return (
+        this.getCountDownTime(deal.dealEndTime) !== "Expired" &&
+        moment(new Date().toISOString()).isAfter(deal.dealStartTime)
+      );
     });
   }
 
@@ -80,27 +88,22 @@ export class HomePage implements OnInit {
     let options = {
       enableHighAccuracy: true,
     };
-
     this.geolocation
       .getCurrentPosition(options)
       .then(
         (pos: Geoposition) => {
+          this.errorText = "No nearby deals found";
           this.currentPos = pos;
+          console.log(pos);
           this.loadDistance();
         },
         async (err: PositionError) => {
-          //         alert(JSON.stringify(err));
-          //   const alert = await this.alertController.create({
-          //   header: "Warning",
-          //   message:
-          //     "Couldn't get your location, Please check your location permission and services",
-          //   buttons: ["Okay"],
-          // });
-          // alert.present();
+          this.errorText = "Couldn't get your location";
           console.log("error : " + err.message);
         }
       )
       .catch((err) => {
+        this.errorText = "Couldn't get your location";
         //    alert(JSON.stringify(err));
       });
   }
@@ -108,22 +111,38 @@ export class HomePage implements OnInit {
   loadDistance() {
     let count = 0;
     this.deals.forEach((deal) => {
-      this.getDistance(+deal.latitude, +deal.longitude).subscribe(
-        (res: any) => {
-          count = count + 1;
-          if (res.rows[0].elements[0].distance) {
-            deal.distance = res.rows[0].elements[0].distance.text.split(
-              " km"
-            )[0];
-          }
-          //  deal.distance = res.rows[0].elements[0].distance.text;
-          //console.log(deal);
-          console.log(deal);
-          if (count === this.deals.length) {
-            this.loadNearbyDeal();
-          }
-        }
-      );
+      deal.distance = this.getDistance(+deal.latitude, +deal.longitude);
+      count = count + 1;
+      if (count === this.deals.length) {
+        this.loadNearbyDeal();
+      }
+    });
+  }
+
+  getDistance(lat2, lon2) {
+    let lat1 = this.currentPos.coords.latitude;
+    let lon1 = this.currentPos.coords.longitude;
+    var R = 6371; // Radius of the earth in km
+    var dLat = this.deg2rad(lat2 - lat1); // deg2rad below
+    var dLon = this.deg2rad(lon2 - lon1);
+    var a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(this.deg2rad(lat1)) *
+        Math.cos(this.deg2rad(lat2)) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c; // Distance in km
+    return d;
+  }
+
+  deg2rad(deg) {
+    return deg * (Math.PI / 180);
+  }
+
+  loadNearbyDeal() {
+    this.nearbyDeals = this.deals.filter((list: any) => {
+      return parseInt(list.distance) < 500;
     });
   }
 
@@ -187,7 +206,7 @@ export class HomePage implements OnInit {
       .request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY)
       .then(
         () => {
-          this.getUserPosition();
+          // this.getUserPosition();
           // When GPS Turned ON call method to get Accurate location coordinates
         },
         (error) =>
@@ -195,30 +214,5 @@ export class HomePage implements OnInit {
             "Error requesting location permissions " + JSON.stringify(error)
           )
       );
-  }
-
-  getDistance(lat, long) {
-    console.log("currentPos", this.currentPos);
-
-    let url =
-      "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/distancematrix/json?origins=" +
-      this.currentPos.coords.latitude +
-      "," +
-      this.currentPos.coords.longitude +
-      "&destinations=" +
-      lat +
-      "," +
-      long +
-      "&key=AIzaSyAOrz9tpau_NSZwVdVDvv0kEMbeZHtkLUE";
-    return this.http.get(url);
-  }
-
-  loadNearbyDeal() {
-    console.log("loading nearby," + this.deals);
-
-    this.nearbyDeals = this.deals.filter((list: any) => {
-      return parseInt(list.distance) < 200;
-    });
-    console.log(this.nearbyDeals);
   }
 }

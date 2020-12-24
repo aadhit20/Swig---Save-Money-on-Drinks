@@ -19,6 +19,7 @@ import { AppAvailability } from "@ionic-native/app-availability/ngx";
 import { Geolocation } from "@ionic-native/geolocation/ngx";
 import { AndroidPermissions } from "@ionic-native/android-permissions/ngx";
 import { LocationAccuracy } from "@ionic-native/location-accuracy/ngx";
+import { SocialSharing } from "@ionic-native/social-sharing/ngx";
 
 @NgModule({
   declarations: [AppComponent],
@@ -35,6 +36,7 @@ import { LocationAccuracy } from "@ionic-native/location-accuracy/ngx";
   providers: [
     StatusBar,
     SplashScreen,
+    SocialSharing,
     InAppBrowser,
     AndroidPermissions,
     Geolocation,

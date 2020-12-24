@@ -8,6 +8,8 @@ import {
   Geoposition,
   PositionError,
 } from "@ionic-native/geolocation/ngx";
+import * as moment from "moment";
+
 @Component({
   selector: "app-featured-deals",
   templateUrl: "./featured-deals.page.html",
@@ -54,7 +56,10 @@ export class FeaturedDealsPage implements OnInit {
 
   filterDeals(list) {
     return list.filter((deal) => {
-      return this.getCountDownTime(deal.dealEndTime) !== "Expired";
+      return (
+        this.getCountDownTime(deal.dealEndTime) !== "Expired" &&
+        moment(new Date().toISOString()).isAfter(deal.dealStartTime)
+      );
     });
   }
 
@@ -80,30 +85,28 @@ export class FeaturedDealsPage implements OnInit {
 
   loadDistance() {
     this.featuredDeals.forEach((deal) => {
-      this.getDistance(+deal.latitude, +deal.longitude).subscribe(
-        (res: any) => {
-          console.log(res);
-
-          if (res.rows[0].elements[0].distance) {
-            deal.distance = res.rows[0].elements[0].distance.text;
-          }
-          console.log(deal);
-        }
-      );
+      deal.distance = this.getDistance(+deal.latitude, +deal.longitude);
     });
   }
 
-  getDistance(lat, long) {
-    let url =
-      "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/distancematrix/json?origins=" +
-      this.currentPos.coords.latitude +
-      "," +
-      this.currentPos.coords.longitude +
-      "&destinations=" +
-      lat +
-      "," +
-      long +
-      "&key=AIzaSyDp3E13X9TtHzcIEDFJnHk6z0xpsPWEFrs";
-    return this.http.get(url);
+  getDistance(lat2, lon2) {
+    let lat1 = this.currentPos.coords.latitude;
+    let lon1 = this.currentPos.coords.longitude;
+    var R = 6371; // Radius of the earth in km
+    var dLat = this.deg2rad(lat2 - lat1); // deg2rad below
+    var dLon = this.deg2rad(lon2 - lon1);
+    var a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(this.deg2rad(lat1)) *
+        Math.cos(this.deg2rad(lat2)) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c; // Distance in km
+    return d.toFixed(2);
+  }
+
+  deg2rad(deg) {
+    return deg * (Math.PI / 180);
   }
 }

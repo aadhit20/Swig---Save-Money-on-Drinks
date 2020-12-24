@@ -1,6 +1,7 @@
 import { DealsService } from "./../../shared/services/deals.service";
 import { Router } from "@angular/router";
 import { Component, OnInit } from "@angular/core";
+import * as moment from "moment";
 
 @Component({
   selector: "app-search",
@@ -45,7 +46,10 @@ export class SearchPage implements OnInit {
 
   filterDeals(list) {
     return list.filter((deal) => {
-      return this.getCountDownTime(deal.dealEndTime) !== "Expired";
+      return (
+        this.getCountDownTime(deal.dealEndTime) !== "Expired" &&
+        moment(new Date().toISOString()).isAfter(deal.dealStartTime)
+      );
     });
   }
 

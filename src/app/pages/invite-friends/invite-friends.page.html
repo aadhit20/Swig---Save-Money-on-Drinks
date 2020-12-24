@@ -1,9 +1,36 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>invite-friends</ion-title>
+    <ion-back-button slot="start"></ion-back-button>
+    <ion-title color="primary"> <strong>Invite Friends</strong> </ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
+  <div class="svg-div">
+    <ion-img src="assets/images/invite-friends.svg"></ion-img>
+    <p class="blue-text">Share this app via</p>
 
+    <ion-row>
+      <ion-col size="3">
+        <ion-img (click)="fbClick()" src="assets/images/fb-logo.png"></ion-img>
+      </ion-col>
+      <ion-col size="3">
+        <ion-img
+          (click)="twitterClick()"
+          src="assets/images/twitter-logo.png"
+        ></ion-img>
+      </ion-col>
+      <ion-col size="3">
+        <ion-img
+          (click)="instaClick()"
+          src="assets/images/insta-logo.png"
+        ></ion-img>
+      </ion-col>
+      <ion-col size="3">
+        <ion-img
+          (click)="whatsappClick()"
+          src="assets/images/whatsapp.png"
+        ></ion-img>
+      </ion-col>
+    </ion-row>
+  </div>
 </ion-content>
